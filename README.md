@@ -28,13 +28,13 @@ SocialDown is a powerful, lightweight, and versatile tool designed to download v
 Getting started on Windows is effortless. The included installer handles everything for you.
 
 1.  **Download the Source Code**: Clone this repository or download the ZIP file and extract it.
-2.  **Run Installer**: Double-click on `install.bat`.
+2.  **Run Installer**: Double-click on `windows-installer.bat`.
     *   It will automatically install necessary Python libraries.
     *   It will set up **aria2c** for faster downloads.
     *   It will create a **SocialDown** shortcut on your Desktop.
 3.  **Start Downloading**: Open the `SocialDown` shortcut from your Desktop and paste your link!
 
-> **Note**: Python and FFMPEG should be installed on your system. If not, the script will guide you or you can install them manually.
+> **Note**: Python should be installed on your system. If not, the script will guide you or you can install them manually.
 
 ### 📱 Android (Termux)
 
