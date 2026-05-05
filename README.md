@@ -6,7 +6,7 @@ SocialDown is a powerful, lightweight, and versatile tool designed to download v
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 *   **Multi-Platform Support**: Works seamlessly on **Windows** and **Android (Termux)**.
 *   **High-Quality Downloads**: Supports resolutions up to **4K** (2160p), 2K, 1080p, 720p, and more.
@@ -21,22 +21,22 @@ SocialDown is a powerful, lightweight, and versatile tool designed to download v
 
 ---
 
-## 📥 Installation
+## Installation
 
-### 💻 Windows
+### Windows
 
 Getting started on Windows is effortless. The included installer handles everything for you.
 
 1.  **Download the Source Code**: Clone this repository or download the ZIP file and extract it.
 2.  **Run Installer**: Double-click on `windows-installer.bat`.
-    *   It will automatically install necessary Python libraries.
-    *   It will set up **aria2c** for faster downloads.
+    *   It will automatically clone/copy files into your user folder.
+    *   It will set up **ffmpeg** and **aria2c** automatically.
     *   It will create a **SocialDown** shortcut on your Desktop.
 3.  **Start Downloading**: Open the `SocialDown` shortcut from your Desktop and paste your link!
 
 > **Note**: Python should be installed on your system. If not, the script will guide you or you can install them manually.
 
-### 📱 Android (Termux)
+### Android (Termux)
 
 Turn your phone into a downloading powerhouse.
 
@@ -45,9 +45,9 @@ Turn your phone into a downloading powerhouse.
 
     ```bash
     pkg update -y && pkg upgrade -y
-    pkg install git python ffmpeg aria2 -y
+    pkg install git -y
     termux-setup-storage
-    git clone https://github.com/ZapLogic/SocialDown.git
+    git clone https://github.com/EngineerQadeer/SocialDown.git
     cd SocialDown
     chmod +x install.sh
     ./install.sh
@@ -55,11 +55,11 @@ Turn your phone into a downloading powerhouse.
 
 3.  **Usage**: 
     *   **Option A**: Open a video in YouTube/App -> Share -> Termux.
-    *   **Option B**: Open Termux and run `python SocialDown.py`.
+    *   **Option B**: Open Termux and run `python ~/SocialDown/SocialDown.py`.
 
 ---
 
-## 🛠️ Usage Guide
+## Usage Guide
 
 **Interactive Mode**:
 Simply run the script, and it will ask for the link.
@@ -80,15 +80,15 @@ python SocialDown.py "https://www.youtube.com/watch?v=example"
 
 ---
 
-## 🌐 Connect with Us
+## Connect with Us
 
 Stay updated with our latest tools and projects. **Engineered by Qadeer.**
 
-*   🔗 **All Links**: [Linktree](https://linktr.ee/Engineer.Qadeer)
-*   💻 **GitHub**: [ZapLogic](https://github.com/ZapLogic)
-*   📘 **Facebook**: [Engineer Qadeer](https://facebook.com/Engineer.Qadeer)
-*   📺 **YouTube**: [@Engineer.Qadeer](https://youtube.com/@Engineer.Qadeer)
+*   **All Links**: [Linktree](https://linktr.ee/Engineer.Qadeer)
+*   **GitHub**: [EngineerQadeer](https://github.com/EngineerQadeer)
+*   **Facebook**: [Engineer Qadeer](https://facebook.com/Engineer.Qadeer)
+*   **YouTube**: [@Engineer.Qadeer](https://youtube.com/@Engineer.Qadeer)
 
 ---
 
-© 2025 **ZapLogic**. All rights reserved.
+© 2025 **Engineer Qadeer**. All rights reserved.

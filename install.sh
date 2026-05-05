@@ -1,27 +1,48 @@
 #!/bin/bash
 
-# Move main script to home directory
-cp "SocialDown.py" "/data/data/com.termux/files/home/SocialDown.py"
+echo "=========================================="
+echo "     SocialDown Termux Installer"
+echo "=========================================="
 
-# Create $HOME/bin if it doesn't exist
-mkdir -p /data/data/com.termux/files/home/bin
+# 1. Setup Directories
+INSTALL_DIR="/data/data/com.termux/files/home/SocialDown"
+BIN_DIR="/data/data/com.termux/files/home/bin"
 
-# Create the termux-url-opener script in $HOME/bin
-cat > /data/data/com.termux/files/home/bin/termux-url-opener << 'EOF'
+echo "[1/4] Creating installation directories..."
+mkdir -p "$INSTALL_DIR"
+mkdir -p "$BIN_DIR"
+
+# 2. Copy Files
+echo "[2/4] Copying files to $INSTALL_DIR..."
+cp "SocialDown.py" "$INSTALL_DIR/SocialDown.py"
+cp "requirements.txt" "$INSTALL_DIR/requirements.txt"
+
+# 3. Create the termux-url-opener script
+echo "[3/4] Setting up termux-url-opener..."
+cat > "$BIN_DIR/termux-url-opener" << 'EOF'
 #!/data/data/com.termux/files/usr/bin/bash
-python /data/data/com.termux/files/home/SocialDown.py "$1"
+python /data/data/com.termux/files/home/SocialDown/SocialDown.py "$1"
 EOF
 
-chmod +x /data/data/com.termux/files/home/bin/termux-url-opener
+chmod +x "$BIN_DIR/termux-url-opener"
 
-# Storage permission
+# 4. Storage permissions & Dependencies
+echo "[4/4] Requesting storage access and installing dependencies..."
 termux-setup-storage
 
-# Install dependencies
+# Update packages and install core tools (ffmpeg, aria2, python)
 pkg update -y
 pkg install python aria2 ffmpeg -y
-pip install yt-dlp
+
+# Install Python requirements
+pip install -r "$INSTALL_DIR/requirements.txt"
 
 clear
-echo "SocialDown installation complete!"
-echo "You can now share links to Termux, or run: python SocialDown.py <link>"
+echo "=========================================="
+echo "      SocialDown installation complete!"
+echo "=========================================="
+echo "- Script is installed in: $INSTALL_DIR"
+echo "- Dependencies (yt-dlp, ffmpeg, aria2) are installed."
+echo "- You can now share media links directly to Termux,"
+echo "- Or run manually: python ~/SocialDown/SocialDown.py <link>"
+echo ""
