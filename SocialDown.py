@@ -261,10 +261,11 @@ def main():
     check_and_download_ffmpeg()
     install_dependencies()
 
-    # CLI / Argument based flow
+    # CLI / Argument based flow (also handles full shared text from termux-url-opener)
     if len(sys.argv) > 1:
-        url = sys.argv[1]
-        process_url(url)
+        # Join all argv tokens in case the shell passed the text as multiple args
+        raw = " ".join(sys.argv[1:])
+        process_url(raw)
         if is_windows:
              input("\nPress Enter to exit...")
              

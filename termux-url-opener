@@ -1,3 +1,41 @@
-# termux-url-opener for SocialDown
-url=$1
-python /data/data/com.termux/files/home/SocialDown/SocialDown.py "$url"
+#!/data/data/com.termux/files/usr/bin/bash
+# termux-url-opener
+# ─────────────────────────────────────────────────────────────────────────────
+# Termux calls this script automatically when ANY URL or text is shared to
+# Termux from another Android app (TikTok, YouTube, Instagram, Facebook, etc.)
+#
+# Installation (run once in Termux):
+#   mkdir -p ~/bin
+#   cp termux-url-opener ~/bin/termux-url-opener
+#   chmod +x ~/bin/termux-url-opener
+# ─────────────────────────────────────────────────────────────────────────────
+
+# $1 contains the full shared text, e.g.:
+# "https://vm.tiktok.com/ZS9FF9FAoeKLs/ This post is shared via TikTok Lite..."
+
+SHARED_TEXT="$1"
+
+# ── Extract the first http/https URL from the shared text ──────────────────
+URL=$(echo "$SHARED_TEXT" | grep -oP 'https?://[^\s]+' | head -n 1)
+
+# Strip trailing punctuation that sometimes gets captured
+URL=$(echo "$URL" | sed 's/[.,;:!?"'\'')\]]*$//')
+
+if [ -z "$URL" ]; then
+    echo "[SocialDown] No URL found in shared text:"
+    echo "$SHARED_TEXT"
+    echo ""
+    echo "Please paste a URL manually:"
+    read -r URL
+fi
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  SocialDown — Shared URL Detected"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  URL: $URL"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
+# ── Run SocialDown with the clean URL ─────────────────────────────────────
+python ~/SocialDown/SocialDown.py "$URL"
