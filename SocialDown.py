@@ -7,6 +7,7 @@ import shutil
 import platform
 import urllib.request
 import zipfile
+import re
 from urllib.parse import urlparse
 from pathlib import Path
 
@@ -228,7 +229,28 @@ def others(url):
         except OSError:
             pass
 
-def process_url(url):
+def extract_url(text):
+    """
+    Extract the first valid HTTP/HTTPS URL from a (possibly messy) string.
+    Handles TikTok Lite share text like:
+      'https://vm.tiktok.com/ZS9FF9FAoeKLs-kWmD9/ This post is shared via TikTok Lite...'
+    """
+    text = text.strip()
+    # Match the first URL-like token in the string
+    match = re.search(r'https?://[^\s]+', text)
+    if match:
+        url = match.group(0)
+        # Strip trailing punctuation that is not part of the URL
+        url = url.rstrip('.,;:!?\'")')
+        return url
+    # Fallback: return the original text and let yt-dlp decide
+    return text
+
+
+def process_url(raw):
+    url = extract_url(raw)
+    if url != raw.strip():
+        print(f"[SocialDown] Extracted URL: {url}")
     if "youtube.com" in url or "youtu.be" in url:
         youtube_flow(url)
     else:
@@ -251,7 +273,7 @@ def main():
         while True:
             try:
                 print("\n" + "="*50)
-                url = input("Enter link to download (or 'q' to exit): ").strip()
+                url = input("Enter link to download (or 'q' to exit): ")  # extract_url handles strip
                 if url.lower() in ['q', 'quit', 'exit']:
                     break
                 if not url:
@@ -265,7 +287,7 @@ def main():
                 
     # Termux / Standard Interactive (Run once)
     else:
-        url = input("Enter the link to download: ").strip()
+        url = input("Enter the link to download: ")  # extract_url handles strip
         if not url:
             print("No link provided. Exiting.")
             sys.exit(1)
